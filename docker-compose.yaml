@@ -1,0 +1,25 @@
+
+
+services:
+  db:
+    image: postgres:17-alpine
+    container_name: nexus-db
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    ports:
+      - "5433:5433"
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
+    restart: always
+  
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: nexus-admin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PG_ADMIN_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PG_ADMIN_PASSWORD}
+    ports:
+      - "5050:80"
+    
