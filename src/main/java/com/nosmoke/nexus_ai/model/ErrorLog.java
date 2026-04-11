@@ -41,7 +41,7 @@ public class ErrorLog {
     @Column(nullable = false)
     private String message;
 
-    //Optional
+    
     //Define as TEXT, String might be not enough to hold the whole message
     @Column(columnDefinition = "TEXT")
     private String stackTrace;
@@ -49,11 +49,17 @@ public class ErrorLog {
     //Optional
     private String contextMetadata;
 
-    @Column(nullable = false)
+    @Column(columnDefinition = "TEXT")
+    private String aiSolution;
+
+    @Column(columnDefinition = "TEXT")
+    private String aiExplanation;
+
+    @Column
     @Enumerated(EnumType.STRING)
     private Environment environment;
 
-    @Column(nullable = false)
+    @Column
     @Enumerated(EnumType.STRING)
     private Level level;
 
@@ -62,9 +68,14 @@ public class ErrorLog {
     @Column(nullable = false)
     private Status status = Status.PENDING;
 
+    @Column
+    @Enumerated(EnumType.STRING)
+    private Component component;
+
     public enum Environment {PROD, DEV, STAGING}
     public enum Level { ERROR , WARN , INFO}
     public enum Status{ PENDING, ANALYZING, SOLVED}
+    public enum Component {FRONTEND, BACKEND, BOTH}
 
     
 
