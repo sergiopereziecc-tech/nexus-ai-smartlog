@@ -18,7 +18,7 @@ public interface ErrorService {
     Optional<ErrorLog> read(Long id);
     List<ErrorLog> readAll();
     void delete(Long id);
-
+    List<ErrorLog> getByApplicationName(String applicationName);
     List<ErrorLog> getByStatus(Status status);
     List<ErrorLog> getByLevel(Level level);
     List<ErrorLog> getByComponent(Component component);
