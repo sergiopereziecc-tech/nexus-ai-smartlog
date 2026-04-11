@@ -36,10 +36,10 @@ public class ErrorLog {
     private LocalDateTime createdAt;
 
     @Column(nullable = false)
-    private String source;
+    private String applicationName;
 
     @Column(nullable = false)
-    private String message;
+    private String errorMessage;
 
     
     //Define as TEXT, String might be not enough to hold the whole message

@@ -15,6 +15,7 @@ import java.util.logging.Level;
 @Repository
 public interface ErrorLogRepository extends JpaRepository<ErrorLog, Long>{
 
+    public List<ErrorLog> findByApplicationName(String applicationName);
     public List<ErrorLog> findByStatus(Status status);
     public List<ErrorLog> findByLevel(Level level);
     public List<ErrorLog> findByComponent(Component component);
