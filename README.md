@@ -7,7 +7,7 @@ Nexus AI es una aplicación software destinada a facilitar el manejo de errores 
 * **El Problema:** Los logs tradicionales suelen tener nombres técnicos engorrosos y descripciones crípticas que retrasan el diagnóstico y la resolución.
 * **La Solución:** Nexus AI facilita el manejo de errores gracias a su conversión de términos técnicos a descripciones fáciles de leer, ofreciendo incluso soluciones automáticas para los mismos a través de inteligencia artificial.
 
-### 🤖 ¿Por qué el uso de una LLM (Gemini)?
+### 🤖 ¿Por qué el uso de una LLM (GitCopilot)?
 El uso de un Modelo de Lenguaje permite analizar trazas de error en tiempo real, traduciendo semánticas complejas a una explicación descriptiva y sencilla en un periodo corto de tiempo, eliminando la búsqueda manual en documentación o foros.
 
 ---
@@ -16,7 +16,7 @@ El uso de un Modelo de Lenguaje permite analizar trazas de error en tiempo real,
 * **Java 21:** Uso de **Virtual Threads** para procesar múltiples errores de forma concurrente sin bloquear el sistema.
 * **Spring Boot 3.4:** Framework base para la construcción de la API REST.
 * **PostgreSQL:** Persistencia robusta para asegurar la trazabilidad y auditoría de los fallos.
-* **Gemini AI:** Motor de IA para el diagnóstico, clasificación y generación de soluciones.
+* **GITHUB COPILOT:** Motor de IA para el diagnóstico, clasificación y generación de soluciones.
 
 ---
 
