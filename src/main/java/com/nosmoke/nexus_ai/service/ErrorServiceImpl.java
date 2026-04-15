@@ -18,10 +18,7 @@ public class ErrorServiceImpl implements ErrorService{
     @Override
     public ErrorResponse create(ErrorRequest errorRequest) {
         
-        
-        return null;
-    }
-
+    }  
     
 
 }
