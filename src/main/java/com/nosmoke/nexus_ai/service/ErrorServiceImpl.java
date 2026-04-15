@@ -24,15 +24,23 @@ public class ErrorServiceImpl implements ErrorService{
     public ErrorResponse create(ErrorRequest errorRequest) {
         
         ErrorLog errorLog = errorMapper.toEntity(errorRequest);
-        errorLogRepository.save(errorLog);
-        return errorMapper.toResponse(errorLog);
+        ErrorLog savedErrorLog = errorLogRepository.save(errorLog);
+        return errorMapper.toResponse(savedErrorLog);
         
     } 
     
     @Override
-    public Optional<ErrorLog> read(Long id) {
+    public ErrorResponse read(Long id) {
+        //explicame que hace el map y el orElseThrow en este contexto
+        //El método findById devuelve un Optional<ErrorLog>. 
+        // El método map se utiliza para transformar el ErrorLog en un ErrorResponse utilizando el errorMapper. 
+        // Si el Optional contiene un valor, se aplicará la función de mapeo y se devolverá un Optional<ErrorResponse>. 
+        // Si el Optional está vacío (es decir, no se encontró un ErrorLog con el ID proporcionado  ), 
+        // entonces el método orElseThrow se ejecutará, lanzando una RuntimeException con el mensaje "Error log not found".
+
+        return errorLogRepository.findById(id).map(errorMapper::toResponse).orElseThrow(() -> new RuntimeException("Error log not found"));
         
-        return Optional.empty();
+        
     }
     
 

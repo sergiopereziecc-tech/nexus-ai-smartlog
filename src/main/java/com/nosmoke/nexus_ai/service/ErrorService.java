@@ -17,7 +17,7 @@ import com.nosmoke.nexus_ai.model.ErrorLog.Status;
 public interface ErrorService {
 
     ErrorResponse create(ErrorRequest errorRequest);
-    Optional<ErrorLog> read(Long id);
+    ErrorResponse read(Long id);
     List<ErrorLog> readAll();
     void delete(Long id);
     List<ErrorLog> getByApplicationName(String applicationName);
