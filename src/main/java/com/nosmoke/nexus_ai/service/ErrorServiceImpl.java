@@ -1,5 +1,6 @@
 package com.nosmoke.nexus_ai.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,10 @@ public class ErrorServiceImpl implements ErrorService{
 
     @Override
     public ErrorResponse create(ErrorRequest errorRequest) {
-        
+
+        //El método create recibe un ErrorRequest, lo convierte a un ErrorLog utilizando el errorMapper,
+        // luego guarda el ErrorLog en la base de datos utilizando el errorLogRepository,
+        // y finalmente convierte el ErrorLog guardado de nuevo a un ErrorResponse para devolverlo al cliente.
         ErrorLog errorLog = errorMapper.toEntity(errorRequest);
         ErrorLog savedErrorLog = errorLogRepository.save(errorLog);
         return errorMapper.toResponse(savedErrorLog);
@@ -39,10 +43,29 @@ public class ErrorServiceImpl implements ErrorService{
         // entonces el método orElseThrow se ejecutará, lanzando una RuntimeException con el mensaje "Error log not found".
 
         return errorLogRepository.findById(id).map(errorMapper::toResponse).orElseThrow(() -> new RuntimeException("Error log not found"));
-        
+    }
+
+    @Override
+    public List<ErrorLog> readAll() {
+        //Find all devuelve una lista de todos los registros de ErrorLog en la base de datos.
+        return errorLogRepository.findAll();
         
     }
-    
+
+    @Override
+    public void delete(Long id) {
+
+        ErrorLog errorLog = errorLogRepository.findById(id).orElseThrow(()-> new RuntimeException("Error log not found"));
+        errorLogRepository.delete(errorLog);
+        
+    }
+
+    @Override
+    public List<ErrorLog> getByApplicationName(String applicationName) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
     
 
 }
