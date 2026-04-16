@@ -15,6 +15,7 @@ import com.nosmoke.nexus_ai.dtos.ErrorResponse;
 import com.nosmoke.nexus_ai.mapper.ErrorMapper;
 import com.nosmoke.nexus_ai.model.ErrorLog;
 import com.nosmoke.nexus_ai.model.ErrorLog.Component;
+import com.nosmoke.nexus_ai.model.ErrorLog.Environment;
 import com.nosmoke.nexus_ai.model.ErrorLog.Level;
 import com.nosmoke.nexus_ai.model.ErrorLog.Status;
 import com.nosmoke.nexus_ai.repository.ErrorLogRepository;
@@ -61,10 +62,11 @@ public class ErrorServiceImpl implements ErrorService {
     }
 
     @Override
-    public List<ErrorLog> readAll() {
+    public List<ErrorResponse> readAll() {
         // Find all devuelve una lista de todos los registros de ErrorLog en la base de
         // datos.
-        return errorLogRepository.findAll();
+        return errorLogRepository.findAll().stream().map(errorMapper::toResponse)
+        .collect(Collectors.toList());
 
     }
 
@@ -98,6 +100,11 @@ public class ErrorServiceImpl implements ErrorService {
     @Override
     public List<ErrorResponse> getByComponent(Component component) {
         return errorLogRepository.findByComponent(component).stream().map(errorMapper::toResponse)
+                .collect(Collectors.toList());
+    }
+    @Override
+    public List<ErrorResponse> getByEnvironment(Environment environment) {
+        return errorLogRepository.findByEnvironment(environment).stream().map(errorMapper::toResponse)
                 .collect(Collectors.toList());
     }
 

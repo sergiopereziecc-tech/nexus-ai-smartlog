@@ -20,7 +20,7 @@ public interface ErrorService {
 
     ErrorResponse create(ErrorRequest errorRequest);
     ErrorResponse read(Long id);
-    List<ErrorLog> readAll();
+    List<ErrorResponse> readAll();
     void delete(Long id);
     List<ErrorResponse> getByApplicationName(String applicationName);
     List<ErrorResponse> getByStatus(Status status);
