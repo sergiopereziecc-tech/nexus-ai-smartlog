@@ -2,6 +2,7 @@ package com.nosmoke.nexus_ai.service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -61,9 +62,10 @@ public class ErrorServiceImpl implements ErrorService{
     }
 
     @Override
-    public List<ErrorLog> getByApplicationName(String applicationName) {
-        // TODO Auto-generated method stub
-        return null;
+    public List<ErrorResponse> getByApplicationName(String applicationName) {
+        return errorLogRepository.findByApplicationName(applicationName).stream()
+        .map(errorMapper::toResponse).collect(Collectors.toList());
+        
     }
 
     
