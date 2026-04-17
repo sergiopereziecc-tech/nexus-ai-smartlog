@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import com.nosmoke.nexus_ai.dtos.ErrorRequest;
 import com.nosmoke.nexus_ai.dtos.ErrorResponse;
@@ -107,5 +108,7 @@ public class ErrorServiceImpl implements ErrorService {
         return errorLogRepository.findByEnvironment(environment).stream().map(errorMapper::toResponse)
                 .collect(Collectors.toList());
     }
+
+    
 
 }
