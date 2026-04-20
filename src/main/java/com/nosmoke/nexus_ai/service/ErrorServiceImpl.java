@@ -60,7 +60,7 @@ public class ErrorServiceImpl implements ErrorService {
         // con el mensaje "Error log not found".
 
         return errorLogRepository.findById(id).map(errorMapper::toResponse)
-                .orElseThrow(() -> new ResourceNotFound("Error log with ID: " + id + "not found"));
+                .orElseThrow(() -> new ResourceNotFound("Error log with ID: " + id + " not found"));
     }
 
     @Override
@@ -76,7 +76,7 @@ public class ErrorServiceImpl implements ErrorService {
     public void delete(Long id) {
 
         ErrorLog errorLog = errorLogRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFound("Error log with ID: " + id + "not found"));
+                .orElseThrow(() -> new ResourceNotFound("Error log with ID: " + id + " not found"));
         errorLogRepository.delete(errorLog);
 
     }

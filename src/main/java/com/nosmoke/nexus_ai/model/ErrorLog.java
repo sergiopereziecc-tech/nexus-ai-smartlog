@@ -73,8 +73,8 @@ public class ErrorLog {
     private Component component;
 
     public enum Environment {PROD, DEV, STAGING}
-    public enum Level { ERROR , WARN , INFO}
-    public enum Status{ PENDING, ANALYZING, SOLVED}
+    public enum Level {ERROR, WARN, INFO}
+    public enum Status{PENDING, ANALYZING, SOLVED}
     public enum Component {FRONTEND, BACKEND, BOTH}
 
     

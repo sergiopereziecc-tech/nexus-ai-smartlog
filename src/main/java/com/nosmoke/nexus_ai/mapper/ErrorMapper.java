@@ -18,6 +18,7 @@ public class ErrorMapper {
         errorLog.setStackTrace(errorRequest.stackTrace());
         errorLog.setEnvironment(errorRequest.environment());
         errorLog.setComponent(errorRequest.component());
+        errorLog.setLevel(errorRequest.level());
         return errorLog;
 
     }
