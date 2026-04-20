@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import com.nosmoke.nexus_ai.dtos.ErrorRequest;
 import com.nosmoke.nexus_ai.dtos.ErrorResponse;
+import com.nosmoke.nexus_ai.exception.ResourceNotFound;
 import com.nosmoke.nexus_ai.mapper.ErrorMapper;
 import com.nosmoke.nexus_ai.model.ErrorLog;
 import com.nosmoke.nexus_ai.model.ErrorLog.Component;
@@ -59,7 +60,7 @@ public class ErrorServiceImpl implements ErrorService {
         // con el mensaje "Error log not found".
 
         return errorLogRepository.findById(id).map(errorMapper::toResponse)
-                .orElseThrow(() -> new RuntimeException("Error log not found"));
+                .orElseThrow(() -> new ResourceNotFound("Error log with ID: " + id + "not found"));
     }
 
     @Override
@@ -75,7 +76,7 @@ public class ErrorServiceImpl implements ErrorService {
     public void delete(Long id) {
 
         ErrorLog errorLog = errorLogRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Error log not found"));
+                .orElseThrow(() -> new ResourceNotFound("Error log with ID: " + id + "not found"));
         errorLogRepository.delete(errorLog);
 
     }
