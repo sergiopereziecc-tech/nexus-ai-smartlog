@@ -1,6 +1,8 @@
 package com.nosmoke.nexus_ai;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.Optional;
@@ -13,6 +15,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.nosmoke.nexus_ai.dtos.ErrorRequest;
 import com.nosmoke.nexus_ai.dtos.ErrorResponse;
+import com.nosmoke.nexus_ai.exception.ResourceNotFound;
 import com.nosmoke.nexus_ai.mapper.ErrorMapper;
 import com.nosmoke.nexus_ai.model.ErrorLog;
 import com.nosmoke.nexus_ai.model.ErrorLog.Component;
@@ -70,6 +73,24 @@ public class TestErrorServiceImpl {
 
         assertEquals(errorResponseTest, errorResponse);
 
+    }
+
+    @Test
+    void shouldNotFindErrorLogById(){
+
+        when(errorLogRepository.findById(5L)).thenReturn(Optional.empty());
+
+        assertThrows(ResourceNotFound.class, () -> errorServiceImpl.read(5L));
+        
+    }
+
+    @Test
+    void deleteIfIdWasFound(){
+        when(errorLogRepository.findById(errorLog.getId())).thenReturn(Optional.of(errorLog));
+        
+        errorServiceImpl.delete(errorLog.getId());
+
+        verify(errorLogRepository).delete(errorLog);
     }
 
 }
