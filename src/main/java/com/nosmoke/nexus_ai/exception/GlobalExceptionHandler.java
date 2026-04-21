@@ -1,12 +1,17 @@
 package com.nosmoke.nexus_ai.exception;
 
 import java.time.LocalDateTime;
+import java.util.Map;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 
 import com.nosmoke.nexus_ai.dtos.ApiError;
 
@@ -20,7 +25,7 @@ public class GlobalExceptionHandler {
                 ex.getMessage(),
                 request.getDescription(false));
 
-        return new ResponseEntity<>(apiError, HttpStatus.NOT_FOUND);
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(apiError);
 
     }
 
@@ -30,8 +35,24 @@ public class GlobalExceptionHandler {
         ApiError apiError = new ApiError(LocalDateTime.now(),
                 "An internal error occurred. Please contact the administrator.",
                 request.getDescription(false));
+
+        return ResponseEntity.internalServerError().body(apiError);
+
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<Map<String, String>> handleMethodArgumentNotValid(MethodArgumentNotValidException ex) {
+
+        Map<String, String> infoMap = ex.getBindingResult()
+                .getFieldErrors()
+                .stream()
+                .collect(Collectors.toMap(
+                        FieldError::getField,
+                        FieldError::getDefaultMessage,
+                        (existing, replacement) -> existing
+                ));
         
-        return new ResponseEntity<>(apiError, HttpStatus.INTERNAL_SERVER_ERROR);
+        return ResponseEntity.badRequest().body(infoMap);
 
     }
 

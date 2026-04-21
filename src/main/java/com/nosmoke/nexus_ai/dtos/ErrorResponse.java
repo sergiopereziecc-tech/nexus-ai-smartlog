@@ -10,7 +10,17 @@ import com.nosmoke.nexus_ai.model.ErrorLog.Status;
 
 
 
-public record ErrorResponse(Long id, LocalDateTime createdAt, String applicationName, Environment environment, Status status,
-    Level level, Component component, String aiSolution, String aiExplanation) {
+public record ErrorResponse(
+    
+    Long id, 
+    LocalDateTime createdAt, 
+    String applicationName, 
+    Environment environment, 
+    Status status,
+    Level level, 
+    Component component, 
+    String aiSolution, 
+    String aiExplanation) 
+    {
     
 }

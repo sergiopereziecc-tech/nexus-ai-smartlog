@@ -12,6 +12,7 @@ import com.nosmoke.nexus_ai.model.ErrorLog.Level;
 import com.nosmoke.nexus_ai.model.ErrorLog.Status;
 import com.nosmoke.nexus_ai.service.ErrorService;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
@@ -36,7 +37,7 @@ public class ErrorController {
 
     // create
     @PostMapping("/submit")
-    public ResponseEntity<ErrorResponse> submitError(@RequestBody ErrorRequest errorRequest) {
+    public ResponseEntity<ErrorResponse> submitError(@Valid @RequestBody ErrorRequest errorRequest) {
 
         return ResponseEntity.status(HttpStatus.CREATED).body(errorService.create(errorRequest));
 
