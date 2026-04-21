@@ -48,7 +48,7 @@ public class ErrorServiceImpl implements ErrorService {
 
     @Override
     public ErrorResponse read(Long id) {
-        // explicame que hace el map y el orElseThrow en este contexto
+        
         // El método findById devuelve un Optional<ErrorLog>.
         // El método map se utiliza para transformar el ErrorLog en un ErrorResponse
         // utilizando el errorMapper.

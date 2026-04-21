@@ -3,6 +3,8 @@ package com.nosmoke.nexus_ai;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
+import java.util.Optional;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -61,6 +63,13 @@ public class TestErrorServiceImpl {
     @Test
     void shouldFindErrorLogById(){
         
+        when(errorLogRepository.findById(errorLog.getId())).thenReturn(Optional.of(errorLog));
+        when(errorMapper.toResponse(errorLog)).thenReturn(errorResponse);
+
+        ErrorResponse errorResponseTest = errorServiceImpl.read(errorLog.getId());
+
+        assertEquals(errorResponseTest, errorResponse);
+
     }
 
 }
