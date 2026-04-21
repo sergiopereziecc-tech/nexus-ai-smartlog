@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
@@ -100,4 +101,15 @@ public class TestErrorServiceImpl {
         assertThrows(ResourceNotFound.class, () -> errorServiceImpl.delete(5L));
     }
 
+    @Test
+    void shouldFindByApplicationName(){
+        List<ErrorLog> mockEntities = List.of(errorLog);
+        List<ErrorResponse> expectedList = List.of(errorResponse);
+        when(errorLogRepository.findByApplicationName(errorLog.getApplicationName())).thenReturn(mockEntities);
+        when(errorMapper.toResponse(errorLog)).thenReturn(errorResponse);
+
+        List<ErrorResponse> result = errorServiceImpl.getByApplicationName(errorLog.getApplicationName());
+
+        assertEquals(expectedList, result);
+    }
 }

@@ -48,7 +48,7 @@ public class ErrorServiceImpl implements ErrorService {
 
     @Override
     public ErrorResponse read(Long id) {
-        
+
         // El método findById devuelve un Optional<ErrorLog>.
         // El método map se utiliza para transformar el ErrorLog en un ErrorResponse
         // utilizando el errorMapper.
@@ -84,7 +84,7 @@ public class ErrorServiceImpl implements ErrorService {
     @Override
     public List<ErrorResponse> getByApplicationName(String applicationName) {
         return errorLogRepository.findByApplicationName(applicationName).stream()
-                .map(errorMapper::toResponse).collect(Collectors.toList());
+                .map(errorMapper::toResponse).toList();
 
     }
 
