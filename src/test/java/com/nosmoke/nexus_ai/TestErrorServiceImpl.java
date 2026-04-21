@@ -93,4 +93,11 @@ public class TestErrorServiceImpl {
         verify(errorLogRepository).delete(errorLog);
     }
 
+    @Test
+    void deleteIfIdNotFound(){
+        when(errorLogRepository.findById(5L)).thenReturn(Optional.empty());
+
+        assertThrows(ResourceNotFound.class, () -> errorServiceImpl.delete(5L));
+    }
+
 }
