@@ -27,7 +27,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
-
 @RestController
 @RequestMapping("/api/errors")
 @RequiredArgsConstructor
@@ -42,7 +41,7 @@ public class ErrorController {
         return ResponseEntity.status(HttpStatus.CREATED).body(errorService.create(errorRequest));
 
     }
-    
+
     @GetMapping("/all")
     public ResponseEntity<List<ErrorResponse>> readAll() {
         return ResponseEntity.status(HttpStatus.OK).body(errorService.readAll());
@@ -54,7 +53,7 @@ public class ErrorController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteError(@PathVariable Long id){
+    public ResponseEntity<Void> deleteError(@PathVariable Long id) {
         errorService.delete(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
@@ -63,14 +62,17 @@ public class ErrorController {
     public ResponseEntity<List<ErrorResponse>> getByApplicationName(@RequestParam String applicationName) {
         return ResponseEntity.status(HttpStatus.OK).body(errorService.getByApplicationName(applicationName));
     }
+
     @GetMapping("/environment")
     public ResponseEntity<List<ErrorResponse>> getByEnvironment(@RequestParam Environment environment) {
         return ResponseEntity.status(HttpStatus.OK).body(errorService.getByEnvironment(environment));
     }
+
     @GetMapping("/status")
     public ResponseEntity<List<ErrorResponse>> getByStatus(@RequestParam Status status) {
         return ResponseEntity.status(HttpStatus.OK).body(errorService.getByStatus(status));
     }
+
     @GetMapping("/level")
     public ResponseEntity<List<ErrorResponse>> getByLevel(@RequestParam Level level) {
         return ResponseEntity.status(HttpStatus.OK).body(errorService.getByLevel(level));
@@ -80,11 +82,5 @@ public class ErrorController {
     public ResponseEntity<List<ErrorResponse>> getByComponent(@RequestParam Component component) {
         return ResponseEntity.status(HttpStatus.OK).body(errorService.getByComponent(component));
     }
-
-
-    
-    
-    
-    
 
 }

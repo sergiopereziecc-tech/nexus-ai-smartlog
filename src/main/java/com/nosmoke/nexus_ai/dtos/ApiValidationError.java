@@ -4,10 +4,12 @@ import java.time.LocalDateTime;
 import java.util.Map;
 
 public record ApiValidationError(
-    LocalDateTime timestamp,
-    String message,
-    String path,
-    Map<String, String> 
-) {
-    
+
+    //
+
+        LocalDateTime timestamp,
+        String message,
+        String path,
+        Map<String, String> errors) {
+
 }
