@@ -16,7 +16,10 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import com.nosmoke.nexus_ai.dtos.ApiError;
 import com.nosmoke.nexus_ai.dtos.ApiValidationError;
 
-@RestControllerAdvice
+import lombok.extern.slf4j.Slf4j;
+
+@RestControllerAdvice // This annotation allows us to handle exceptions globally across the whole application, not just in a single controller
+@Slf4j // Lombok annotation to add a logger to the class
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(ResourceNotFound.class)
@@ -36,6 +39,7 @@ public class GlobalExceptionHandler {
         ApiError apiError = new ApiError(LocalDateTime.now(),
                 "An internal error occurred. Please contact the administrator.",
                 request.getDescription(false));
+        log.error("Unexpected error: ", ex);
 
         return ResponseEntity.internalServerError().body(apiError);
 
@@ -52,7 +56,7 @@ public class GlobalExceptionHandler {
                 .collect(Collectors.toMap(
                         FieldError::getField,
                         FieldError::getDefaultMessage,
-                        (existing, replacement) -> existing // for duplicates
+                        (existing, replacement) -> existing // In case of duplicate keys, keep the existing value (you can also choose to replace it with the new value if needed
                 ));
         ApiValidationError apiValidationError = new ApiValidationError(LocalDateTime.now(),
                 "Validation Failed",
