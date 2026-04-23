@@ -27,7 +27,7 @@ public class UserService implements UserDetailsService {
 
     private final JwtUtil jwtUtil;
 
-    private final AuthenticationManager authenticationManager;
+    
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -49,14 +49,6 @@ public class UserService implements UserDetailsService {
         return jwtUtil.generateToken(user);
 
     }
-    public String login(LoginRequest loginRequest){
-
-        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.username(), loginRequest.password()));
-        
-        UserDetails userDetails = loadUserByUsername(loginRequest.username());
-
-        return jwtUtil.generateToken(userDetails);
-
-    }
+    
 
 }
