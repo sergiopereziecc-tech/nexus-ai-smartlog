@@ -3,8 +3,8 @@ spring.application.name=nexus-ai
 # 1. Configuración de la Conexión (El "Puente")
 # Nota: Usamos localhost:5433 porque es el túnel que abrimos en Docker
 spring.datasource.url=jdbc:postgresql://localhost:5433/nexus_database
-spring.datasource.username=user
-spring.datasource.password=password
+spring.datasource.username=your_user_here
+spring.datasource.password=your_password_here
 
 # 2. Configuración de JPA / Hibernate (El "Traductor")
 # 'update' hará que las tablas se creen solas en pgAdmin al arrancar la app
@@ -17,5 +17,4 @@ spring.jpa.properties.hibernate.format_sql=true
 spring.jpa.database-platform=org.hibernate.dialect.PostgreSQLDialect
 
 
-jwt.secret=oRF4GuojrctGhpicxbHFmCCMPf3xqzBrNheKZLGQjNw=
-
+jwt.secret=secret_key_here
