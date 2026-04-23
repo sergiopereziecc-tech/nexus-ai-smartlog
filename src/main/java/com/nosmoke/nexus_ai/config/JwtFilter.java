@@ -8,6 +8,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
+import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import com.nosmoke.nexus_ai.utility.JwtUtil;
@@ -30,6 +31,7 @@ import lombok.RequiredArgsConstructor;
  * 
  * OncePerRequestFilter ensures this filter runs exactly once per request, even with request forwarding.
  */
+@Component
 @RequiredArgsConstructor
 public class JwtFilter extends OncePerRequestFilter {
 
