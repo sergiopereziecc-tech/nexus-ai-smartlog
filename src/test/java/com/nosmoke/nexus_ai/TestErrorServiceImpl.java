@@ -18,6 +18,7 @@ import com.nosmoke.nexus_ai.dtos.ErrorRequest;
 import com.nosmoke.nexus_ai.dtos.ErrorResponse;
 import com.nosmoke.nexus_ai.exception.ResourceNotFound;
 import com.nosmoke.nexus_ai.mapper.ErrorMapper;
+import com.nosmoke.nexus_ai.model.AiSolutions;
 import com.nosmoke.nexus_ai.model.ErrorLog;
 import com.nosmoke.nexus_ai.model.ErrorLog.Component;
 import com.nosmoke.nexus_ai.model.ErrorLog.Environment;
@@ -43,7 +44,7 @@ public class TestErrorServiceImpl {
 
     ErrorLog errorLog = new ErrorLog(1L, null, "Poster", "Error",
      "StackTrace", null, null, null,
-      Environment.DEV, Level.INFO, Status.PENDING, Component.BACKEND);
+      Environment.DEV, Level.INFO, Status.PENDING, Component.BACKEND,List.of());
     
     ErrorResponse errorResponse = new ErrorResponse(1L, null, "Poster", Environment.DEV, 
         Status.PENDING, Level.INFO, Component.BACKEND, null, null);
