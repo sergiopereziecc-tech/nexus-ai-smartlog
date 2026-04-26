@@ -1,6 +1,7 @@
 package com.nosmoke.nexus_ai.model;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.cache.annotation.CacheConfig;
@@ -12,6 +13,7 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -76,6 +78,9 @@ public class ErrorLog {
     public enum Level {ERROR, WARN, INFO}
     public enum Status{PENDING, ANALYZING, SOLVED}
     public enum Component {FRONTEND, BACKEND, BOTH}
+
+    @OneToMany(mappedBy = "errorLog")
+    private List <AiSolutions> aiSolutions;
 
     
 
