@@ -90,18 +90,23 @@ public class AiService {
                 + errorLog.getComponent()
                 + "\n. Finally, based on the error log enviroment, if its prod, dev or staging. Base your solution around all the information: "
                 + errorLog.getEnvironment();
+        prompt = prompt.replace("\n", "\\n");
 
         // Step 2: Format the prompt into the JSON structure that Gemini API expects
         // Gemini API requires requests in a specific format with "contents" containing "parts" with "text"
         String requestBody = """
                 {
-                    "contents": [{"parts": [{"text": "%s"}]}]
+                    "model": "llama-3.3-70b-versatile",
+                    "messages": [
+                    {"role": "user", "content": "%s"}
+                    ]
                 }
                 """.formatted(prompt);
 
         // Step 3: Prepare HTTP headers for the API request
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON); // Tell the API we're sending JSON
+        headers.set("Authorization", "Bearer " + apiKey);
 
         // Step 4: Create an HTTP entity with the request body and headers
         HttpEntity<String> entity = new HttpEntity<>(requestBody, headers);
@@ -109,18 +114,16 @@ public class AiService {
         // Step 5: Send POST request to the Gemini API
         // Append the API key as a query parameter for authentication
         // The API returns a complex JSON response with the generated solution nested inside
-        String responseBody = restTemplate.postForEntity(apiUrl + apiKey, entity, String.class).getBody();
+        String responseBody = restTemplate.postForEntity(apiUrl, entity, String.class).getBody();
 
         // Step 6: Parse the complex JSON response to extract just the solution text
         // Gemini's response structure: response -> candidates[0] -> content -> parts[0] -> text
         // We navigate this tree to find the actual AI-generated solution
         String parsedResponse = objectMapper.readTree(responseBody)
-                .get("candidates")
+                .get("choices")
                 .get(0)
+                .get("message")
                 .get("content")
-                .get("parts")
-                .get(0)
-                .get("text")
                 .asText();
 
         // Step 7: Create an AiSolutions object to store the result

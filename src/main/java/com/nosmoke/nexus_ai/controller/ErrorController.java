@@ -3,6 +3,7 @@ package com.nosmoke.nexus_ai.controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.nosmoke.nexus_ai.dtos.ErrorRequest;
 import com.nosmoke.nexus_ai.dtos.ErrorResponse;
 import com.nosmoke.nexus_ai.model.ErrorLog;
@@ -36,7 +37,7 @@ public class ErrorController {
 
     // create
     @PostMapping("/submit")
-    public ResponseEntity<ErrorResponse> submitError(@Valid @RequestBody ErrorRequest errorRequest) {
+    public ResponseEntity<ErrorResponse> submitError(@Valid @RequestBody ErrorRequest errorRequest) throws JsonProcessingException{
 
         return ResponseEntity.status(HttpStatus.CREATED).body(errorService.create(errorRequest));
 

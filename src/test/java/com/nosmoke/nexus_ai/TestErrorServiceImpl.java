@@ -14,6 +14,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.nosmoke.nexus_ai.dtos.ErrorRequest;
 import com.nosmoke.nexus_ai.dtos.ErrorResponse;
 import com.nosmoke.nexus_ai.exception.ResourceNotFound;
@@ -51,7 +52,7 @@ public class TestErrorServiceImpl {
     
 
     @Test
-    void shouldCreateErrorLog(){
+    void shouldCreateErrorLog() throws JsonProcessingException{
         //Arrange
         when(errorMapper.toEntity(errorRequest)).thenReturn(errorLog);
         when(errorLogRepository.save(errorLog)).thenReturn(errorLog);
