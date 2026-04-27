@@ -43,7 +43,7 @@ private String solutionText;
 
 // confidence_score: DECIMAL (¿Qué tan segura está la IA del 0 al 100?).
 
-Integer confidenceScore;
+private Integer confidenceScore;
 
 // created_at: TIMESTAMP.
 @CreationTimestamp
