@@ -21,3 +21,4 @@ jwt.secret=secret_key_here
 jwt.expiration=86400000
 
 gemini.api.key=your_key_here
+gemini.api.url=gemini_url_here
