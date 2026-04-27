@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.nosmoke.nexus_ai.ai.service.AiService;
 import com.nosmoke.nexus_ai.dtos.ErrorRequest;
 import com.nosmoke.nexus_ai.dtos.ErrorResponse;
 import com.nosmoke.nexus_ai.exception.ResourceNotFound;
@@ -30,9 +32,10 @@ public class ErrorServiceImpl implements ErrorService {
 
     private final ErrorLogRepository errorLogRepository;
     private final ErrorMapper errorMapper;
+    private final AiService aiService;
 
     @Override
-    public ErrorResponse create(ErrorRequest errorRequest) {
+    public ErrorResponse create(ErrorRequest errorRequest) throws JsonProcessingException{
 
         // El método create recibe un ErrorRequest, lo convierte a un ErrorLog
         // utilizando el errorMapper,
@@ -42,6 +45,7 @@ public class ErrorServiceImpl implements ErrorService {
         // devolverlo al cliente.
         ErrorLog errorLog = errorMapper.toEntity(errorRequest);
         ErrorLog savedErrorLog = errorLogRepository.save(errorLog);
+        aiService.analyzeError(savedErrorLog);
         return errorMapper.toResponse(savedErrorLog);
 
     }
