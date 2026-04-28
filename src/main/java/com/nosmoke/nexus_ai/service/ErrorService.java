@@ -2,6 +2,7 @@ package com.nosmoke.nexus_ai.service;
 
 import java.util.List;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.nosmoke.nexus_ai.dtos.ErrorRequest;
 import com.nosmoke.nexus_ai.dtos.ErrorResponse;
 
@@ -12,7 +13,7 @@ import com.nosmoke.nexus_ai.model.ErrorLog.Status;
 
 public interface ErrorService {
 
-    ErrorResponse create(ErrorRequest errorRequest);
+    ErrorResponse create(ErrorRequest errorRequest) throws JsonProcessingException;
 
     ErrorResponse read(Long id);
 
