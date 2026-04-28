@@ -116,6 +116,7 @@ public class AiService {
         // Step 5: Send POST request to the Groq API
         // The API returns a JSON response with the generated solution nested inside a specific structure
         String responseBody = restTemplate.postForEntity(apiUrl, entity, String.class).getBody();
+        
 
         // Step 6: Parse the complex JSON response to extract the solution and confidence score
         // Groq's response structure: response -> choices[0] -> message -> content
@@ -127,7 +128,8 @@ public class AiService {
                 .get("message")
                 .get("content")
                 .asText();
-        // Parse the JSON content to extract the solution
+          // The content may contain markdown formatting (```json ... ```), so we clean it to get pure JSON        
+        parsedResponse= parsedResponse.replace("```json", "").replace("```", "").trim();        // Parse the JSON content to extract the solution
         String parsedSolution = objectMapper.readTree(parsedResponse)
                 .get("solution")
                 .asText();
