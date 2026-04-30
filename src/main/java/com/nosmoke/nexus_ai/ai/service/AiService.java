@@ -49,13 +49,13 @@ public class AiService {
 
     // The base URL for Groq's API
     // Loaded from application configuration (application.properties or application.yml)
-    @Value("${gemini.api.url}")
+    @Value("${groq.api.url}")
     private String apiUrl;
 
     // The API key for authenticating with Groq's service
     // This is a sensitive credential and should be kept secure in production
     // Loaded from application configuration
-    @Value("${gemini.api.key}")
+    @Value("${groq.api.key}")
     private String apiKey;
 
     /**
