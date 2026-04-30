@@ -35,12 +35,14 @@ public class User implements UserDetails{
     private Long id;
 
     @NotBlank
+    @Column(unique = true)
     private String username;
 
     @NotBlank
     private String password;
 
     @NotBlank
+    @Column(unique = true)
     private String email;
 
     @Enumerated(EnumType.STRING)
