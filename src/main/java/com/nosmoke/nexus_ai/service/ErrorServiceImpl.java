@@ -46,7 +46,9 @@ public class ErrorServiceImpl implements ErrorService {
         ErrorLog errorLog = errorMapper.toEntity(errorRequest);
         ErrorLog savedErrorLog = errorLogRepository.save(errorLog);
         aiService.analyzeError(savedErrorLog);
-        return errorMapper.toResponse(savedErrorLog);
+        
+        return errorMapper.toResponse(errorLogRepository.findById(savedErrorLog.getId())
+            .orElseThrow(() -> new ResourceNotFound("Error Log with ID: " + savedErrorLog.getId() + " not found.")));
 
     }
 
