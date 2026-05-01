@@ -1,6 +1,7 @@
 package com.nosmoke.nexus_ai.model;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -51,11 +52,6 @@ public class ErrorLog {
     //Optional
     private String contextMetadata;
 
-    @Column(columnDefinition = "TEXT")
-    private String aiSolution;
-
-    @Column(columnDefinition = "TEXT")
-    private String aiExplanation;
 
     @Column
     @Enumerated(EnumType.STRING)
@@ -80,7 +76,7 @@ public class ErrorLog {
     public enum Component {FRONTEND, BACKEND, BOTH}
 
     @OneToMany(mappedBy = "errorLog")
-    private List <AiSolutions> aiSolutions;
+    private List <AiSolutions> aiSolutions =  new ArrayList<>();
 
     
 

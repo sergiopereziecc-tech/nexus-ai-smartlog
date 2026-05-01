@@ -1,6 +1,7 @@
 package com.nosmoke.nexus_ai.dtos;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import com.nosmoke.nexus_ai.model.ErrorLog.Component;
 import com.nosmoke.nexus_ai.model.ErrorLog.Environment;
@@ -19,8 +20,7 @@ public record ErrorResponse(
     Status status,
     Level level, 
     Component component, 
-    String aiSolution, 
-    String aiExplanation) 
+    List<AiSolutionResponse> solution) 
     {
     
 }

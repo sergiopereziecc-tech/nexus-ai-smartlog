@@ -80,13 +80,13 @@ public class TestErrorServiceImpl {
     // Test data: An error log as it would be stored in the database
     // This is what the mapper should convert the ErrorRequest into
     ErrorLog errorLog = new ErrorLog(1L, null, "Poster", "Error",
-     "StackTrace", null, null, null,
+     "StackTrace", null,
       Environment.DEV, Level.INFO, Status.PENDING, Component.BACKEND,List.of());
     
     // Test data: An error response as it would be returned to the client
     // This is what the mapper should convert the ErrorLog into
     ErrorResponse errorResponse = new ErrorResponse(1L, null, "Poster", Environment.DEV, 
-        Status.PENDING, Level.INFO, Component.BACKEND, null, null);
+        Status.PENDING, Level.INFO, Component.BACKEND, List.of());
     
 
     /**

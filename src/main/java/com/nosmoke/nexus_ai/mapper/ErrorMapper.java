@@ -1,7 +1,10 @@
 package com.nosmoke.nexus_ai.mapper;
 
+import java.util.List;
+
 import org.springframework.stereotype.Component;
 
+import com.nosmoke.nexus_ai.dtos.AiSolutionResponse;
 import com.nosmoke.nexus_ai.dtos.ErrorRequest;
 import com.nosmoke.nexus_ai.dtos.ErrorResponse;
 import com.nosmoke.nexus_ai.model.ErrorLog;
@@ -24,9 +27,13 @@ public class ErrorMapper {
     }
 
     public ErrorResponse toResponse(ErrorLog errorLog) {
+
+        List<AiSolutionResponse> solution = errorLog.getAiSolutions().stream()
+            .map(aiSolution -> new AiSolutionResponse(aiSolution.getSolutionText(), aiSolution.getConfidenceScore()))
+            .toList();
         
         ErrorResponse errorResponse = new ErrorResponse(errorLog.getId(), errorLog.getCreatedAt(),errorLog.getApplicationName() , errorLog.getEnvironment(), errorLog.getStatus(),
-        errorLog.getLevel(), errorLog.getComponent(), errorLog.getAiSolution(), errorLog.getAiExplanation());
+        errorLog.getLevel(), errorLog.getComponent(), solution);
         return errorResponse;
     
     }
